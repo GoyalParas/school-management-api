@@ -4,7 +4,8 @@ const db = require('../db');
 
 // Add School API
 router.post('/addSchool', (req, res) => {
-  const { name, address, latitude, longitude } = req.body;
+  const body = req.body || {};
+  const { name, address, latitude, longitude } = body;
 
   // Validation
   if (!name || !address || latitude === undefined || longitude === undefined) {

@@ -14,6 +14,25 @@ db.connect((err) => {
     return;
   }
   console.log('Connected to MySQL database');
+
+  const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS schools (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      address VARCHAR(500) NOT NULL,
+      latitude FLOAT NOT NULL,
+      longitude FLOAT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+  `;
+
+  db.execute(createTableQuery, (tableErr) => {
+    if (tableErr) {
+      console.error('Failed to create schools table:', tableErr);
+      return;
+    }
+    console.log('Verified schools table exists');
+  });
 });
 
 module.exports = db;
